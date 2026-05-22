@@ -32,3 +32,13 @@ resource "aws_eks_access_entry" "developer" {
   principal_arn     = aws_iam_user.dev.arn
   kubernetes_groups = ["my-viewer"]
 }
+
+resource "aws_eks_access_policy_association" "developer" {
+  cluster_name  = aws_eks_cluster.eks.name
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
+  principal_arn = aws_iam_user.dev.arn
+
+  access_scope {
+    type = "cluster"
+  }
+}

@@ -86,3 +86,13 @@ resource "aws_eks_access_entry" "manager" {
   principal_arn     = aws_iam_role.eks_admin.arn
   kubernetes_groups = ["my-admin"]
 }
+
+resource "aws_eks_access_policy_association" "manager" {
+  cluster_name  = aws_eks_cluster.eks.name
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+  principal_arn = aws_iam_role.eks_admin.arn
+
+  access_scope {
+    type = "cluster"
+  }
+}

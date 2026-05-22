@@ -47,7 +47,7 @@ resource "aws_eks_node_group" "general" {
   instance_types = ["t3.small"]
 
   scaling_config {
-    desired_size = 1
+    desired_size = 3
     max_size     = 10
     min_size     = 0
   }
@@ -65,8 +65,4 @@ resource "aws_eks_node_group" "general" {
     aws_iam_role_policy_attachment.amazon_eks_cni_policy,
     aws_iam_role_policy_attachment.amazon_ec2_container_registry_read_only,
   ]
-
-  lifecycle {
-    ignore_changes = [scaling_config[0].desired_size]
-  }
 }
